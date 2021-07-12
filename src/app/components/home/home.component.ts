@@ -18,6 +18,7 @@ export interface TodoModel {
 })
 export class HomeComponent implements OnInit {
   value: any;
+  categories : any;
   data: {[key: string]: TodoModel[]} = {
     done: [],
     pendings: [],
@@ -47,7 +48,11 @@ export class HomeComponent implements OnInit {
   }
 
   addTodo(todo) {
-    const obj = { todo: todo.value };
+    const obj = { 
+      name: todo.value,
+      isComplete: false  
+    };
+      
     this.todoService.addTodo(obj)
       .subscribe((res: any) => {
         this.openSnackBar(res.message);
@@ -59,12 +64,16 @@ export class HomeComponent implements OnInit {
   }
 
   getAllTodos() {
+    this.categories = this.todoService.categories;
+    console.log( this.categories )
+
     this.todoService.getAllTodos()
       .subscribe((res) => {
-        console.log(res);
         Object.keys(res).forEach((key) => {
           this.data[key] = res[key];
         });
+
+        console.log(res);
       }, (err) => {
         console.log(err);
       });
@@ -73,7 +82,6 @@ export class HomeComponent implements OnInit {
   updateTodo() {
     this.todoService.updateTodo(this.data)
       .subscribe((res) => {
-        console.log(res);
       }, (err) => {
         console.log(err);
       });
@@ -83,7 +91,6 @@ export class HomeComponent implements OnInit {
     if (confirm('Bu maddeyi silmek istediğinize emin misiniz?')) {
       this.todoService.removeTodo(id)
         .subscribe((res) => {
-          console.log(res);
           this.getAllTodos();
         }, (err) => {
           console.log(err);

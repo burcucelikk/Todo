@@ -9,6 +9,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
+import { MatSelectModule } from '@angular/material/select';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -33,6 +35,7 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     MatButtonModule,
     MatCheckboxModule,
+    MatSelectModule,
     MatInputModule,
     MatCardModule,
     MatIconModule,
@@ -41,7 +44,8 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     HttpClientModule
   ],
-  providers: [{provide: 'apiUrl', useValue: 'https://api.limantech.com/todo'} ],
+  providers: [{provide: 'apiUrl', useValue: 'https://172.16.60.212:5001'} ],
+  /*providers: [{provide: 'apiUrl', useValue: 'https://api.limantech.com/todo'} ],*/
   bootstrap: [AppComponent]
 })
 export class AppModule { }
