@@ -18,7 +18,7 @@ export interface TodoModel {
 })
 export class HomeComponent implements OnInit {
   value: any;
-  categories : any;
+  categories : any = [];
   data: {[key: string]: TodoModel[]} = {
     done: [],
     pendings: [],
@@ -33,6 +33,16 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.getAllTodos();
+    
+    this.todoService.getAllCategoriesTodos()
+    .subscribe((res) => {
+      Object.keys(res).forEach((key) => {
+        this.categories.push(res[key]);
+      });
+
+    }, (err) => {
+      console.log(err);
+    });
   }
 
   drop(event: CdkDragDrop<TodoModel[],any>) {
@@ -47,12 +57,15 @@ export class HomeComponent implements OnInit {
     this.updateTodo();
   }
 
-  addTodo(todo) {
+  addTodo(todo, category) {
     const obj = { 
       name: todo.value,
+      categoryId : category.value,
       isComplete: false  
     };
       
+    console.log(obj)
+
     this.todoService.addTodo(obj)
       .subscribe((res: any) => {
         this.openSnackBar(res.message);
@@ -64,13 +77,18 @@ export class HomeComponent implements OnInit {
   }
 
   getAllTodos() {
-    this.categories = this.todoService.categories;
-    console.log( this.categories )
-
+    this.todoService.getAllTodosbyId(2)
+      .subscribe((res) => {
+        
+        console.log(res);
+      }, (err) => {
+        console.log(err);
+      });
+    //Buraya ıd gonderıp ona uıygun alıcaksın
     this.todoService.getAllTodos()
       .subscribe((res) => {
         Object.keys(res).forEach((key) => {
-          this.data[key] = res[key];
+          this.data.pendings[key] = res[key]["name"];
         });
 
         console.log(res);

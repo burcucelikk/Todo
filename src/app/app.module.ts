@@ -44,7 +44,7 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     HttpClientModule
   ],
-  providers: [{provide: 'apiUrl', useValue: 'https://172.16.60.212:5001'} ],
+  providers: [{provide: 'apiUrl', useValue: 'https://192.168.1.13:5001'} ],
   /*providers: [{provide: 'apiUrl', useValue: 'https://api.limantech.com/todo'} ],*/
   bootstrap: [AppComponent]
 })

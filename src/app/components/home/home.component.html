@@ -9,10 +9,16 @@
         </div>
         <div class="col-md-6">
           <form class="example-form">
+            <mat-form-field class="example-full-width" >
+              <mat-select value="0" placeholder="Kategori seç"  #category>
+                <mat-option  value="0">Kategori seçin</mat-option>
+                <mat-option *ngFor="let item of categories" value="{{item.id}}">{{item.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
             <mat-form-field class="example-full-width">
               <input matInput placeholder="Yapılacak yeni madde ekle" #newTodo>
             </mat-form-field>
-            <button mat-raised-button color="primary" type="submit" (click)="addTodo(newTodo)">Ekle</button>
+            <button mat-raised-button color="primary" type="submit" (click)="addTodo(newTodo,category)">Ekle</button>
           </form>
         </div>
       </div>
@@ -31,7 +37,7 @@
                 (cdkDropListDropped)="drop($event)">
                 <div class="example-box" *ngFor="let item of data.pendings" cdkDrag>
                   <img class="svg" src="assets/svg/clock.svg">
-                  <span class="todo-title">{{item.todo}}</span>
+                  <span class="todo-title">{{item}}</span>
                   <div class="button">
                     <button mat-icon-button color="warn" (click)="removeTodo(item.id)">
                       <mat-icon>delete</mat-icon>
